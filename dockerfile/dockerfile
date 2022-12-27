@@ -1,0 +1,21 @@
+# To build the image use command:
+# docker build -t <IMAGE_NAME>:<IMAGE_TAG> .
+
+FROM python:3.11.1
+
+ARG USERNAME=Deployer
+
+# ============================== 
+# Install required packages
+# ==============================
+RUN pip install \
+	clearml \
+	requests
+
+# ===================================================
+# Set working directory and entrypoint for container
+# =================================================== 
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+ENTRYPOINT ["entrypoint.sh"]
+
+WORKDIR /home/$USERNAME
